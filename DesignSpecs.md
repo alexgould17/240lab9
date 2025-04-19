@@ -11,8 +11,11 @@ Knows:
 - Name of the food `String name`
 - Food group `String group` *thought about making this an enum, but seems unnecessarily complex & restrictive*
 - Kilocalories per serving `int kcal` *will be referenced in the interface simply as* "calories" *because Americans tend not to know that food calories are actually measured in kilocalories*
-- Daily percentage `float daily`
+- Daily percentage `double daily`
 - `static final String STRING_DEFAULT`, the default value for String parameters in this class.
+- `static final String[] tableHeaders` array of 4 `String`s (one for each variable in the `Food` class) that will head the table when the full list is displayed.
+- `static int[] columnWidths` array of 4 `int`s listing the width of each column in the display table. Initialized to the length of the corresponding `String` in `tableHeaders`.
+- `NumberFormatter`s for integers & percentages
 
 Does:
 - Default & full constructors
@@ -27,8 +30,6 @@ Should implement `Iterable` for use in range-based `for` loops.
 Knows:
 - `int size`
 - `FoodListNode start`
-- `static final String[] tableHeaders` array of 4 `String`s (one for each variable in the `Food` class) that will head the table when the full list is displayed.
-- `static int[] columnWidths` array of 4 `int`s listing the width of each column in the display table. Initialized to the length of the corresponding `String` in `tableHeaders`.
 
 Does:
 - Default constructor & constructor with single `Food` item
