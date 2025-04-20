@@ -33,6 +33,8 @@ Knows:
 
 Does:
 - Default constructor & constructor with single `Food` item
+- Add a `Food` to the list
+- `int getLength()`
 - Implements `Iterable` & `Iterator` properly to list the contained `Food`s in order
 - Deletes items from itself above a certain `kcal` threshold
 - Selects random foods for a meal (params: `int num_foods`)
