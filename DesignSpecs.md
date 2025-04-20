@@ -37,7 +37,7 @@ Does:
 - `int getLength()`
 - Implements `Iterable` & `Iterator` properly to list the contained `Food`s in order
 - Deletes items from itself above a certain `kcal` threshold
-- Selects random foods for a meal (params: `int num_foods`)
+- Selects random foods for a meal (params: `int numFoods`)
 - Finds a food by `name` in the list & returns it (or `null` if not found)
 
 ### `FoodListNode`
