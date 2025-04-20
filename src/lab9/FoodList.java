@@ -109,7 +109,7 @@ public class FoodList {
 
         // Loop & search
         while(current != null) {
-            if(current.element.getName().equals(name)) {
+            if(current.element.getName().equalsIgnoreCase(name)) {
                 return current.element;
             }
             current = current.next;
