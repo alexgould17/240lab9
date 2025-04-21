@@ -67,10 +67,12 @@ public class FoodList {
                     node = null;
                 } else {
                     FoodListNode temp = node;
-                    node.element = node.next.element;
-                    node.next = node.next.next;
+                    node.element = temp.next.element;
+                    node.next = temp.next.next;
                     node = temp.next;
                 }
+            } else {
+                node = node.next;
             }
         }
     }

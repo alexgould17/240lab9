@@ -107,8 +107,7 @@ public class Driver {
                     int cals = 0;
                     while(cals <= 0) {
                         try {
-                            System.out.println("Enter a calorie limit as an integer > 0.");
-                            System.out.print("All foods >= this will be removed from the list: ");
+                            System.out.print("Enter calorie limit to remove foods from list: ");
                             cals = terminal.nextInt();
                         } catch(InputMismatchException e) {
                             System.out.println("Please enter an integer!");
