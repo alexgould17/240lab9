@@ -12,14 +12,10 @@ public class FoodList {
         public FoodListNode next; // pointer to next item in list. null if end.
 
         // Default constructor, sets element to null
-        public FoodListNode() {
-            element = null;
-        }
+        public FoodListNode() {element=null;next=null;}
 
         // Constructor with Food object
-        public FoodListNode(Food element) {
-            this.element = element;
-        }
+        public FoodListNode(Food element) {this.element = element;next=null;}
     }
 
     /* FoodList instance vars */
@@ -42,9 +38,16 @@ public class FoodList {
 
     // Add a Food to the list
     public void add(Food f) {
-        FoodListNode oldEnd = end;
-        end = new FoodListNode(f);
-        oldEnd.next = end;
+        FoodListNode temp = new FoodListNode(f);
+
+        // Case: empty list
+        if(start == null) {
+            start = temp;
+            end = temp;
+        } else { // Otherwise:
+            end.next = temp;
+            end = temp;
+        }
         size++;
     }
 

@@ -56,6 +56,7 @@ public class Driver {
                 menuChoice = terminal.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter 1-5 for a menu selection!");
+                terminal.skip(".*");
             }
 
             // Break out by input
@@ -79,7 +80,7 @@ public class Driver {
                         String name = terminal.next();
                         Food f = foods.findByName(name);
                         if(f == null)
-                            System.out.println("Food not found!");
+                            System.out.println("Food \"" + name + "\" not found!");
                         else
                             meal[i++] = f;
                     }
@@ -111,6 +112,7 @@ public class Driver {
                             cals = terminal.nextInt();
                         } catch(InputMismatchException e) {
                             System.out.println("Please enter an integer!");
+                            terminal.skip(".*");
                         }
                     }
 
@@ -131,7 +133,7 @@ public class Driver {
     }
 
     public static void printEqualBar(int width) {
-        System.out.println(" ".repeat(width));
+        System.out.println("=".repeat(width));
     }
 
     public static void printTableHeader() {
