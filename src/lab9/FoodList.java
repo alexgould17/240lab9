@@ -20,19 +20,17 @@ public class FoodList {
 
     /* FoodList instance vars */
     protected int size;
-    protected FoodListNode start, end;
+    protected FoodListNode start;
 
     // Default constructor: empty list
     public FoodList() {
         start = null;
-        end = null;
         size = 0;
     }
 
     // Constructor starting from a single Food item
     public FoodList(Food f) {
         start = new FoodListNode(f);
-        end = start;
         size = 1;
     }
 
@@ -43,10 +41,12 @@ public class FoodList {
         // Case: empty list
         if(start == null) {
             start = temp;
-            end = temp;
-        } else { // Otherwise:
-            end.next = temp;
-            end = temp;
+        } else {
+            // Otherwise, loop to the end & add this item
+            FoodListNode current = start;
+            while(current.next != null)
+                current = current.next;
+            current.next = temp;
         }
         size++;
     }
@@ -58,21 +58,30 @@ public class FoodList {
     // Delete all items from the list with kcal >= cals
     public void removeHighCalFoods(int cals) {
         FoodListNode node = start;
+        boolean isStart = true;
+
         // Loop thru all elements & check if the calories meet the threshold
         while(node != null) {
             if(node.element.getCals() >= cals) {
+
                 // End of the list? If so, null this node entirely. Otherwise, link the next node
                 if(node.next == null) {
-                    node.element = null;
                     node = null;
                 } else {
                     FoodListNode temp = node;
                     node.element = temp.next.element;
                     node.next = temp.next.next;
-                    node = temp.next;
                 }
+
+                // Reduce size
+                size--;
+
+                // Keep start pointer updated
+                if(isStart)
+                    start = node;
             } else {
                 node = node.next;
+                isStart = false;
             }
         }
     }
@@ -126,15 +135,18 @@ public class FoodList {
     // Returns the strings of all the Foods in the list on their own line
     @Override
     public String toString() {
-        String s = "";
+        if(start == null)
+            return "Empty list!\n";
+        StringBuilder s = new StringBuilder();
         FoodListNode current = start;
 
         // Loop over list & concat
         while(current != null) {
-            s += current.element + "\n";
+            s.append(current.element);
+            s.append('\n');
             current = current.next;
         }
 
-        return s;
+        return s.toString();
     }
 }
