@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Random;
 
-public class FoodList {
+public class FoodList implements Iterable<Food> {
     /* Inner class representing singly-linked list nodes */
     protected class FoodListNode {
         public Food element;
@@ -57,7 +57,7 @@ public class FoodList {
 
     // Delete all items from the list with kcal >= cals
     public void removeHighCalFoods(int cals) {
-        FoodListNode node = start;
+        FoodListNode node = start, prev = null;
         boolean isStart = true;
 
         // Loop thru all elements & check if the calories meet the threshold
@@ -67,6 +67,8 @@ public class FoodList {
                 // End of the list? If so, null this node entirely. Otherwise, link the next node
                 if(node.next == null) {
                     node = null;
+                    if(prev != null)
+                        prev.next = null;
                 } else {
                     FoodListNode temp = node;
                     node.element = temp.next.element;
@@ -80,6 +82,7 @@ public class FoodList {
                 if(isStart)
                     start = node;
             } else {
+                prev = node;
                 node = node.next;
                 isStart = false;
             }
@@ -119,16 +122,14 @@ public class FoodList {
     }
 
     public Food findByName(String name) {
-        FoodListNode current = start;
-
-        // Loop & search
-        while(current != null) {
-            if(current.element.getName().equalsIgnoreCase(name)) {
-                return current.element;
+        // Iterate over the list & return the Food if its name matches the passed String
+        for(Food f : this) {
+            if(f.getName().equalsIgnoreCase(name)) {
+                return f;
             }
-            current = current.next;
         }
 
+        // If not found, return null
         return null;
     }
 
@@ -138,15 +139,32 @@ public class FoodList {
         if(start == null)
             return "Empty list!\n";
         StringBuilder s = new StringBuilder();
-        FoodListNode current = start;
 
-        // Loop over list & concat
-        while(current != null) {
-            s.append(current.element);
+        for(Food f : this) {
+            s.append(f);
             s.append('\n');
-            current = current.next;
         }
 
         return s.toString();
+    }
+
+    // Iterable implementation
+    @Override
+    public Iterator<Food> iterator() {
+        return new Iterator<Food>() {
+            private FoodListNode current = start;
+
+            @Override
+            public boolean hasNext() {
+                return !(current == null);
+            }
+
+            @Override
+            public Food next() {
+                Food f = current.element;
+                current = current.next;
+                return f;
+            }
+        };
     }
 }
