@@ -5,8 +5,21 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Executable class for implementing the functionality of the lab (see readme) via the terminal. Contains a few helper methods.
+ *
+ * @author Alexander Gould
+ * @version 1.0
+ */
 public class Driver {
+    /**
+     * Display title for the main menu.
+     */
     static String menuTitle = "Welcome to Parkland Meal Selector";
+
+    /**
+     * Options corresponding to user input.
+     */
     static String[] menuOptions = {
             "1. List food database",
             "2. Create meal by manual selection",
@@ -14,11 +27,26 @@ public class Driver {
             "4. Remove foods high in calorie",
             "5. Exit"
     };
+
+    /**
+     * Input prompt
+     */
     static String menuInput = "Enter selection: ";
+
+    /**
+     * Width in characters of the menu.
+     */
     static int menuWidth = menuTitle.length();
 
+    /**
+     * File to load <code>Food</code> instances from.
+     */
     static String dbpath = "foods.txt";
 
+    /**
+     * Start of execution
+     * @param args arguments passed to the program (unused)
+     */
     public static void main(String[] args) {
         // Update menuWidth
         for(String option : menuOptions) {
@@ -61,6 +89,7 @@ public class Driver {
 
             // Break out by input
             switch (menuChoice) {
+                // List foods
                 case 1:
                     // Print header
                     printEqualBar(menuWidth);
@@ -70,7 +99,11 @@ public class Driver {
                     // Print foods
                     System.out.print(foods);
                     break;
+
+                // Manual meal selection
                 case 2:
+
+                    // Let the user choose 3 foods, and start an index to fill the meal array
                     int i = 0, numFoods = 3;
                     Food[] meal = new Food[numFoods];
 
@@ -92,6 +125,8 @@ public class Driver {
                     }
                     System.out.println();
                     break;
+
+                // Random meal selection
                 case 3:
                     Food[] randommeal = foods.randomMeal(3);
 
@@ -102,6 +137,8 @@ public class Driver {
                     }
                     System.out.println();
                     break;
+
+                // Delete high-calorie foods
                 case 4:
                     // Input loop, ensure cals > 0
                     int cals = 0;
@@ -115,11 +152,16 @@ public class Driver {
                         }
                     }
 
+                    // Remove the foods & confirm the operation to the user
                     foods.removeHighCalFoods(cals);
                     System.out.println("Foods over " + cals + " calories removed.");
                     break;
+
+                // Exit. breaking out of the switch statement will send us to the while loop condition, which will exit since menuChoice=5
                 case 5:
                     break;
+
+                // For any other integer input
                 default:
                     System.out.println("Enter a number between 1-5!");
             }
@@ -131,10 +173,18 @@ public class Driver {
         System.exit(0);
     }
 
+    /**
+     * Outputs a line of equal bars to the terminal equal to the passed <code>width</code> parameter &amp; ends in a newline.
+     * @param width the width of the bars
+     */
     public static void printEqualBar(int width) {
         System.out.println("=".repeat(width));
     }
 
+    /**
+     * Prints a single newline-terminated line to the terminal containing the correctly-sized &amp; -spaced headers corresponding to each
+     * field in the <code>Food</code> class.
+     */
     public static void printTableHeader() {
         System.out.print(Food.tableHeaders[0] + " ".repeat(
                 Food.columnWidths[0]- Food.tableHeaders[0].length() + 1));
@@ -146,6 +196,9 @@ public class Driver {
                 Food.columnWidths[3]- Food.tableHeaders[3].length()));
     }
 
+    /**
+     * Displays the main menu, input options &amp; input prompt in the terminal. Input line takes input on the same line as it was printed.
+     */
     public static void displayMainMenu() {
         // Title
         printEqualBar(menuWidth);
